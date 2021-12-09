@@ -83,12 +83,6 @@ extra:
   analytics:
     provider: google
   social:
-    - icon: fontawesome/brands/facebook
-      name: Facebook
-      link: https://www.facebook.com/develsystems
-    - icon: fontawesome/brands/linkedin
-      name: Linkedin
-      link: https://www.linkedin.com/company/develsystems/mycompany/
     - icon: fontawesome/solid/headset
       name: Soporte
       link: https://soporte.develsystems.com/
