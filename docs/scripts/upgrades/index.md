@@ -2,7 +2,7 @@
 template: overrides/main.html
 ---
 
-# Changelog
+# Versiones
 
 ## Material for MkDocs
 

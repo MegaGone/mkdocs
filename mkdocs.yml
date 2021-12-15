@@ -113,10 +113,7 @@ nav:
 
   - Scripts:
     - scripts/index.md
-    - Google Chrome     :   scripts/chrome.md
-    - Microsoft Edge    :   scripts/edge.md
-    - Firefox           :   scripts/firefox.md
-    - Internet Explorer :   scripts/explorer.md
+    - Navegadores más usados  :   scripts/browsers.md
     - Versiones:
       - scripts/upgrades/index.md
       - ¿Cómo actualizar el script?: scripts/upgrades/update-script.md
