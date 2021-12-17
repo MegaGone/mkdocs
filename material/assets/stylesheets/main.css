@@ -428,7 +428,7 @@ kbd {
   margin-left: initial;
 }
 .md-typeset :is(img, svg) {
-  max-width: 100%;
+  max-width: 85%;
   height: auto;
 }
 .md-typeset :is(img, svg)[align=left] {
