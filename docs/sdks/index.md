@@ -9,6 +9,13 @@ Lo primero que debes hacer es identificar el sitema operativo, dependiendo para 
 ### ¿Cómo actualizo el SDK?
 Debes de navegar a `¿Cómo actualizar el sdk?` o puedes dar click en [actualizar], ahí encontrarás una guía para actualizar de forma correcta el SDK.
 
+!!! warning "RECOMENDACIÓN"
+
+    Consulta antes con nuestro soporte para que te asesoren con la instalación del nuevo `SDK`.
+    Puedes consultar dando click en [soporte], te responderemos aconsejandote para que la instalación 
+    se haga de manera correcta.
+
 [Android]: android.md
 [iOS]: ios.md
 [actualizar]: upgrades/update-sdk.md
+[soporte]: https://soporte.develsystems.com/
