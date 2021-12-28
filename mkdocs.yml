@@ -113,10 +113,8 @@ nav:
 
   - Scripts:
     - scripts/index.md
-    - Navegadores más usados  :   scripts/browsers.md
-    - Versiones:
-      - scripts/upgrades/index.md
-      - ¿Cómo actualizar el script?: scripts/upgrades/update-script.md
+    - Versiones: scripts/upgrades/versiones.md
+    - ¿Cómo actualizar el script?: scripts/upgrades/update-script.md
     
   - SDK's: 
     - sdks/index.md
