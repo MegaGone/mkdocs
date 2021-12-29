@@ -106,10 +106,9 @@ markdown_extensions:
 nav:
   - Inicio: index.md
   - Documentación:
-    - Installation: getting-started.md
-    - Creating your site: creating-your-site.md
-    - Customization: customization.md
-    - License: license.md
+    - documentation/index.md
+    - Novedades:  documentation/whats-new.md
+    - Soporte:    documentation/support.md
 
   - Scripts:
     - scripts/index.md
