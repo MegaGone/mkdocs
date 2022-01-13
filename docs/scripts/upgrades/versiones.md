@@ -6,7 +6,7 @@ template: overrides/main.html
 
 ## Material for MkDocs
 
-### 8.0.2 <small>_ Diciembre 30, 2021</small> { id="8.0.2" }
+<!-- ### 8.0.2 <small>_ Diciembre 30, 2021</small> { id="8.0.2" }
 
 - Fixed #3275: Code annotations always disappear on click
 
@@ -97,6 +97,14 @@ template: overrides/main.html
 
 ### 7.2.7 <small>_ Enero 19, 2021</small> { id="7.2.7" }
 
+- Updated Serbian and Serbo-Croatian translations
+- Improved appearance of outline on details
+- Fixed #2934: Scrollbar when header is hidden on some mobile browsers
+- Fixed #3032: Anchor in details doesn't open on load (7.0.0 regression)
+- Fixed back-to-top button being focusable when invisible
+- Fixed broken admonition icons (removed in upstream) -->
+
+### 4.1 <small>_ Septiembre 20, 2020</small> { id="4.1 }
 - Updated Serbian and Serbo-Croatian translations
 - Improved appearance of outline on details
 - Fixed #2934: Scrollbar when header is hidden on some mobile browsers

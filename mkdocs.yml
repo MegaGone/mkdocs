@@ -68,6 +68,7 @@ extra:
 
 # Extensions
 markdown_extensions:
+  - tables
   - admonition
   - abbr
   - attr_list
@@ -112,8 +113,9 @@ nav:
 
   - Scripts:
     - scripts/index.md
-    - Versiones: scripts/upgrades/versiones.md
-    - ¿Cómo actualizar el script?: scripts/upgrades/update-script.md
+    - Instalación: scripts/instalación.md
+    - Versiones                         : scripts/upgrades/versiones.md
+    - ¿Cómo actualizar el script?       : scripts/upgrades/update-script.md
     
   - SDK's: 
     - sdks/index.md
