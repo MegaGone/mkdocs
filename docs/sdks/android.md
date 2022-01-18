@@ -1,78 +1,183 @@
-# Versiones
+# Android
 
-## Android
+El presente documento muestra los pasos necesarios para realizar la integración del servicio SmartID dentro de las Bancas Móviles.
 
-### 7.3.1 <small>_ Octubre 2, 2021</small> { id="7.3.1" }
+!!! info "IMPORTANTE"
+    Los métodos descritos a continuación se implementan mediante el uso de una librería nativa generada para Android con compatibilidad a partir de la versión 4.0.3 (API 15)
 
-- Added new experimental content tabs implementation
-- Fixed #3069: GitHub stats broken for users/orgs (7.1.0 regression)
-- Fixed #3070: Sections not linking to index page
-- Fixed title not linking to index page when using tabs
-- Fixed Disqus integration when using instant loading
-- Fixed some spacing issues for right-to-left languages
-- Fixed syntax error in Serbian translations
+## Instalación SDK
 
-### 7.3.0 <small>_ Septiembre 23, 2021</small> { id="7.3.0" }
+1. Agregar referencia al repositorio de DevelSystems en el archivo.gradle del proyecto. { id="Agregar referencia al repo" }
 
-- Added support for sticky navigation tabs
-- Added support for section index pages
-- Added support for removing generator notice
+=== "example.gradle"
+    ``` gradle
+    allprojects {
+        repositories {
+            maven {
+                url 'https://mymavenrepo.com/repo/RbCl0bo3GGziIIJjcRoH/'
+                credentials
+                {
+                username 'bi'
+                password '8jLvGf6Hj4vo2fG8'
+                }
+            }
+        }
+    }
+    ```
 
-### 7.2.8 <small>_ Septiembre 20, 2021</small> { id="7.2.8" }
+2. Agregue las dependencias en su archivo build.gradle. { id="Agregar dependencias" }
 
-- Fixed #3039: Search modal overlays menu on mobile (7.2.7 regression)
+=== "build.gradle"
+    ``` gradle
+    dependencies {
+        implementation 'com.develsystems.bi:smartid:1.1.3'
+    }
+    ```
 
-### 7.2.7 <small>_ Septiembre 19, 2021</small> { id="7.2.7" }
+3. Agregar los siguientes permisos en el archivo AndroidManifest.xml, para Android 6 y superiores se deben de solicitar en tiempo de ejecución. { id="Agregar permisos" }
 
-- Updated Serbian and Serbo-Croatian translations
-- Improved appearance of outline on details
-- Fixed #2934: Scrollbar when header is hidden on some mobile browsers
-- Fixed #3032: Anchor in details doesn't open on load (7.0.0 regression)
-- Fixed back-to-top button being focusable when invisible
-- Fixed broken admonition icons (removed in upstream)
+=== "AndroidManifest.xml"
+    ``` xml
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    **Opcionales
+    **<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    **<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    ```
 
-### 7.2.6 <small>_ Septiembre 1, 2021</small> { id="7.2.6" }
+## Crear Instancia
+Este método debe de ser ejecutado al momento de abrir la aplicación.
 
-- Fixed rendering of `blockquote` elements (7.0.0 regression)
-- Fixed #2973: Custom search worker setting ignored
+### Integración
+Para utilizar el SDK de Android se debe crear una instancia de la clase SmartId.
 
-### 7.2.5 <small>_ Agosto 25, 2021</small> { id="7.2.5" }
+``` js
+import com.develsystems.smartid.SmartId;
+SmartId.initInstance(Context,license, user, isProduction);
+```
+### Parámetros
+=== "Parámetros"
 
-- Updated Portuguese translations
-- Fixed execution of RxJS teardown logic (7.2.3 regression)
-- Fixed #2970: Search results show escaped characters (7.2.2 regression)
+    | Parámetro   | Tipo    | Descripción                                             |
+    | :---------: | :-----: | :-----------------------------------------------------: |
+    | `context`   | Context | Contexto de la aplicación                               |
+    | `license`   | String  | Licencia del producto de SmartID                        |
+    | `user`      | String  | Usuario que ingresa a la banca móvil `Ej. lesther.vega` |
+    | `isProduct` | Boolean | `true` = Producción / `false` = Desarrollo/QA           |
 
-### 7.2.4 <small>_ Agosto 11, 2021</small> { id="7.2.4" }
+## Enlazar Dispositivo
+Este método inicia el rastreo de un dispositivo en el servicio de SmartID, este método debe de ser ejecutado al momento de iniciar sesión de forma exitosa.
 
-- Fixed #2926: Version selector not working (7.2.3 regression)
-- Fixed #2929: Missing CSS class for banner (consistency with Insiders)
+### Integración
+Se debe llamar al método `Link` con los siguientes parámetros
 
-### 7.2.3 <small>_ Agosto 9, 2021</small> { id="7.2.3" }
+### Parámetros
+``` js
+import com.develsystems.smartid.SmartId;
+SmartId.getInstance().Link(channel, session);
+```
 
-- Slight facelift of data tables, now closer to Material Design
-- Fixed instant loading not respecting clicks on search results
-- Fixed #2881: Invalid anchor offsets when using instant loading
+=== "Channel"
 
-### 7.2.2 <small>_ Julio 31, 2021</small> { id="7.2.2" }
+    | Canal       | Descripción                          |
+    | :---------: | :----------------------------------: |
+    | `1`         | Banca Individual                     |
+    | `2`         | Banca Corporativa                    |
+    | `3`         | Aplicación Móvil – Banca Individual  |
+    | `4`         | Aplicación Móvil – Banca Corporativa |
+    | `5`         | Banpais                              |
+    | `6`         | Banpais App                          |
+    | `7`         | BI SV                                |
+    | `8`         | BI SV App                            |
+    | `9`         | Bibank                               |
+    | `10`        | Bibank App                           |
+    | `11`        | Teclado Virtual                      |
+    | `12`        | Exeboard                             |
+    | `13`        | Exeboard App                         |
 
-- Updated Korean translations
-- Fixed #2879: Search highlighting does not properly escape HTML
+=== "Session"
 
-### 7.2.1 <small>_ Junio 25, 2021</small> { id="7.2.1" }
+    !!! info "Session"
+        Sesión generada por el canal
 
-- Fixed #2862: Back-to-top button overlays active search bar
+## Rastrear dispositivo
+Detectar posibles fraudes. Este método debe ser ejecutado en las pantallas donde se realicen transacciones.
 
-### 7.2.0 <small>_ Abril 18, 2021</small> { id="7.2.0" }
+### Integración
+Se debe llamar al método Tracking con los siguientes parámetros:
 
-- Added support for search suggestions to save keystrokes
-- Added support for search highlighting
-- Added support for search sharing (i.e. deep linking)
+``` js
+import com.develsystems.smartid.SmartId;
+SmartId.getInstance().Tracking(channel, session, activity);
+```
 
-### 7.1.11 <small>_ Marzo 3, 2021</small> { id="7.1.11" }
+### Parámetros
 
-- Updated Spanish and Galician translations
+=== "Channel"
 
-### 7.1.10 <small>_ Febrero 7, 2021</small> { id="7.1.10" }
+    Todos los canáles son del tipo `Int`
 
-- Refactored appearance of back-to-top button
-- Fixed graceful handling of search when browsing locally
+    | Canal       | Descripción                          |
+    | :---------: | :----------------------------------: |
+    | `1`         | Banca Individual                     |
+    | `2`         | Banca Corporativa                    |
+    | `3`         | Aplicación Móvil – Banca Individual  |
+    | `4`         | Aplicación Móvil – Banca Corporativa |
+    | `5`         | Banpais                              |
+    | `6`         | Banpais App                          |
+    | `7`         | BI SV                                |
+    | `8`         | BI SV App                            |
+    | `9`         | Bibank                               |
+    | `10`        | Bibank App                           |
+    | `11`        | Teclado Virtual                      |
+    | `12`        | Exeboard                             |
+    | `13`        | Exeboard App                         |
+
+=== "Session"
+
+    !!! info "Session"
+        Sesión generada por la banca. `String`
+
+=== "Session"
+
+    !!! info "Activity"
+        Pantalla desde donde se genera el tracking. `Ejemplo: TRANFERENCIA_TERCEROS`. `String`
+
+## Desenlazar dispositivo
+
+Este método tienen como objetivo finalizar el rastreo de un dispositivo en el servicio de SmartID. Este método debe ser ejecutado al momento de finalizar sesión.
+
+### Integración
+Se debe llamar al método UnLink con los siguientes parámetros:
+
+``` js
+import com.develsystems.smartid.SmartId;
+SmartId.getInstance().UnLink(channel, session);
+```
+
+### Parámetros
+=== "Channel"
+
+    Todos los canáles son del tipo `Int`
+
+    | Canal       | Descripción                          |
+    | :---------: | :----------------------------------: |
+    | `1`         | Banca Individual                     |
+    | `2`         | Banca Corporativa                    |
+    | `3`         | Aplicación Móvil – Banca Individual  |
+    | `4`         | Aplicación Móvil – Banca Corporativa |
+    | `5`         | Banpais                              |
+    | `6`         | Banpais App                          |
+    | `7`         | BI SV                                |
+    | `8`         | BI SV App                            |
+    | `9`         | Bibank                               |
+    | `10`        | Bibank App                           |
+    | `11`        | Teclado Virtual                      |
+    | `12`        | Exeboard                             |
+    | `13`        | Exeboard App                         |
+
+=== "Session"
+
+    !!! info "Session"
+        Sesión generada por la banca. `String`
