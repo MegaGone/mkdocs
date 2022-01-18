@@ -1,94 +1,188 @@
-# Versiones
-## iOS
+# iOS
 
-### 8.0.5 <small>_ Diciembre 14, 2021</small> { id="8.0.5" }
+El presente documento muestra los pasos necesarios para realizar la integración del servicio SmartID dentro de las Bancas Móviles.
 
-- Fixed #3302: Footer refactoring induced ellipsis in some browsers
-- Fixed #3313: Details always rendered closed on load (8.0.4 regression)
+!!! info "IMPORTANTE"
+    Los métodos descritos a continuación se implementan mediante el uso de una librería nativa generada para iOS con compatibilidad a partir de la versión iOS10+
 
-### 8.0.4 <small>_ Octubre 7, 2021</small> { id="8.0.4" }
+## Instalación SDK
+Agregar referencia al repositorio de DevelSystems en la sección de Swift Package Manager del proyecto.
 
-- Improved support for deeply nested code annotations
-- Improved code annotation and copy-to-clipboard interop
-- Improved styling for code annotations inside admonitions
-- Fixed #3274: Invalid anchor positioning when using instant loading
-- Fixed #3294: Lists after code blocks without code annotations disappearing
-- Fixed several positioning issues for code annotations
-- Fixed JavaScript source map roots
+=== "SmartID"
+    ``` js
+    url: https://github.com/DevelSystems/SmartID-iOS
+    branch: 4.2.0_3_psapp
+    ```
 
-### 8.0.3 <small>_ Septiembre 2, 2021</small> { id="8.0.3" }
+=== "Dependencia"
+    ``` js
+    url: https://github.com/kishikawakatsumi/KeychainAccess
+    version: 4.2.2
+    ```
 
-- Removed deprecated `google_analytics` setting (was forgotten in 8.0.0)
-- Fixed syntax error in Swedish and Polish translations
-- Fixed #3283: Invalid back-to-top button position with sticky navigation tabs
-- Fixed #3285: Default details marker showing due to Safari bug
+## Inicializar framework
+Para este paso debemos inicializar el framework con los datos iniciales para su funcionamiento correcto
 
-### 8.0.2 <small>_ Agosto 15, 2021</small> { id="8.0.2" }
+### Integración
+Para utilizar el SDK de iOS se debe `inicializar` el `framework` al hacer `login` en la aplicación
 
-- Fixed #3275: Code annotations always disappear on click
+``` js
+import SmartId;
+SID.start(license: "licence", username: “username", isProduction: true)
+```
 
-### 8.0.1 <small>_ Julio 28, 2021</small> { id="8.0.1" }
+### Parámetros
+=== "Parámetros"
 
-- Improved rendering of code annotation markers
-- Fixed #3265: Wrong margin on nested admonitions
-- Fixed wrong `box-sizing` for code annotations in details
+    | Parámetro      | Tipo    | Descripción                                             |
+    | :------------: | :-----: | :-----------------------------------------------------: |
+    | `license`      | String  | Licencia del producto de SmartID                        |
+    | `username`     | String  | Usuario que ingresa a la banca móvil `Ej. lesther.vega` |
+    | `isProduction` | Boolean | `true` = Producción / `false` = Desarrollo/QA           |
 
-### 8.0.0 <small>_ Julio 2, 2021</small> { id="8.0.0" }
+## Enlazar dispositivo
+Sirve para iniciar el rastreo de un dispositivo en el servicio de SmartID, este método debe de ser ejecutado al momento de iniciar sesión de forma exitosa.
 
-- Added support for code annotations
-- Added support for anchor tracking
-- Added support for version warning
-- Added `copyright` partial for easier override
-- Removed deprecated content tabs legacy implementation
-- Removed deprecated `seealso` admonition type
-- Removed deprecated `site_keywords` setting (unsupported by MkDocs)
-- Removed deprecated prebuilt search index support
-- Removed deprecated web app manifest – use customization
-- Removed `extracopyright` variable – use new `copyright` partial
-- Removed Disqus integation – use customization
-- Switched to `:is()` selectors for simple selector lists
-- Switched autoprefixer from `last 4 years` to `last 2 years`
-- Improved CSS overall to match modern standards
-- Improved CSS variable semantics for fonts
-- Improved extensibility by restructuring partials
-- Improved handling of `details` when printing
-- Improved keyboard navigation for footnotes
-- Fixed #3214: Search highlighting breaks site when empty
+### Integración
+Se debe llamar al método `Link` con los siguientes parámetros:
 
-### 7.3.6 <small>_ Mayo 10, 2021</small> { id="7.3.6" }
+``` js
+import SmartId
+SID.shared.link(channel: "channel", session: "session")
+```
 
-- Added support for adding titles to code blocks
+### Parámetros
 
-### 7.3.5 <small>_ Abril 23, 2021</small> { id="7.3.5" }
+=== "Channel"
 
-- Added support for setting table of contents title via `mkdocs.yml`
-- Fixed back-to-top button position for right-to-left languages
+    | Canal       | Descripción                          |
+    | :---------: | :----------------------------------: |
+    | `1`         | Banca Individual                     |
+    | `2`         | Banca Corporativa                    |
+    | `3`         | Aplicación Móvil – Banca Individual  |
+    | `4`         | Aplicación Móvil – Banca Corporativa |
+    | `5`         | Banpais                              |
+    | `6`         | Banpais App                          |
+    | `7`         | BI SV                                |
+    | `8`         | BI SV App                            |
+    | `9`         | Bibank                               |
+    | `10`        | Bibank App                           |
+    | `11`        | Teclado Virtual                      |
+    | `12`        | Exeboard                             |
+    | `13`        | Exeboard App                         |
 
-### 7.3.4 <small>_ Marzo 17, 2021</small> { id="7.3.4" }
+=== "Session"
 
-- Bumped MkDocs version to 1.2.3 to mitigate [CVE-2021-40978]
-- Fixed spacing issues when using integrate table of contents with tabs
-- Fixed some spacings issues for right-to-left languages
-- Fixed race condition in search initialization
+    !!! info "Session"
+        Sesión generada por el canal
 
-  [CVE-2021-40978]: https://nvd.nist.gov/vuln/detail/CVE-2021-40978
+## Rastrear dispositivo
+Método par detectar posibles fraudes. Este método debe ser ejecutado en las pantallas donde se realicen transacciones.
 
-### 7.3.3 <small>_ Febrero 28, 2021</small> { id="7.3.3" }
+### Integración
+Se debe llamar al método `Tracking` con los siguientes parámetros:
 
-- Rewrite of entire documentation
-- Adjusted height of new content tabs to match single line code blocks
-- Fixed new content tabs missing right padding in some browsers on overflow
-- Fixed new content tabs bleeding out of flex container on overflow
-- Fixed new content tabs overflow scrolling bugs on some browsers
-- Fixed new content tabs stealing keyboard access when active
-- Fixed some spacings issues for right-to-left languages
+``` js
+import SmartId;
+SID.shared.tracking(channel: channelProd, session: "", action: "PAGO_TERCEROS")
+```
 
-### 7.3.2 <small>_ Enero 11, 2021</small> { id="7.3.3" }
+### Parámetros
 
-- Rewrite of entire documentation
-- Adjusted height of new content tabs to match single line code blocks
-- Fixed new content tabs missing right padding in some browsers on overflow
-- Fixed new content tabs bleeding out of flex container on overflow
-- Fixed new content tabs overflow scrolling bugs on some browsers
-- Fixed new content tabs stealing keyboard access when active
-- Fixed some spacings issues for right-to-left languages
+=== "Channel"
+
+    | Canal       | Descripción                          |
+    | :---------: | :----------------------------------: |
+    | `1`         | Banca Individual                     |
+    | `2`         | Banca Corporativa                    |
+    | `3`         | Aplicación Móvil – Banca Individual  |
+    | `4`         | Aplicación Móvil – Banca Corporativa |
+    | `5`         | Banpais                              |
+    | `6`         | Banpais App                          |
+    | `7`         | BI SV                                |
+    | `8`         | BI SV App                            |
+    | `9`         | Bibank                               |
+    | `10`        | Bibank App                           |
+    | `11`        | Teclado Virtual                      |
+    | `12`        | Exeboard                             |
+    | `13`        | Exeboard App                         |
+
+=== "Session"
+
+    !!! info "Session"
+        Sesión generada por la banca
+
+=== "Action"
+
+    !!! info "Action"
+        Pantalla desde donde se genera el tracking. `Ejemplo: TRANFERENCIA_TERCEROS`
+
+## Desenlazar Dispositivo
+Para finalizar el rastreo de un dispositivo en el servicio de SmartID. Este método debe ser ejecutado al momento de finalizar sesión.
+
+### Integración
+Se debe llamar al método UnLink con los siguientes parámetros:
+
+``` js
+import SmartId;
+SID.shared.unlink(channel: “channel”, session: "session")
+```
+
+### Parámetros
+=== "Channel"
+
+    | Canal       | Descripción                          |
+    | :---------: | :----------------------------------: |
+    | `1`         | Banca Individual                     |
+    | `2`         | Banca Corporativa                    |
+    | `3`         | Aplicación Móvil – Banca Individual  |
+    | `4`         | Aplicación Móvil – Banca Corporativa |
+    | `5`         | Banpais                              |
+    | `6`         | Banpais App                          |
+    | `7`         | BI SV                                |
+    | `8`         | BI SV App                            |
+    | `9`         | Bibank                               |
+    | `10`        | Bibank App                           |
+    | `11`        | Teclado Virtual                      |
+    | `12`        | Exeboard                             |
+    | `13`        | Exeboard App                         |
+
+=== "Session"
+
+    !!! info "Session"
+        Sesión generada por la banca
+
+## Información de dispositivo
+Este método tiene como finalidad obtener la información relacioanda al dispositivo. Este método se debe ejecutar con sesión.
+
+### Integración
+Se debe llamar al método getDeviceInfo con los siguientes parámetros:
+
+``` js
+import SmartId;
+SID.shared.getDeviceInfo(channel: "String", session: "String") -> String?
+```
+
+### Parámetros
+=== "Channel"
+
+    | Canal       | Descripción                          |
+    | :---------: | :----------------------------------: |
+    | `1`         | Banca Individual                     |
+    | `2`         | Banca Corporativa                    |
+    | `3`         | Aplicación Móvil – Banca Individual  |
+    | `4`         | Aplicación Móvil – Banca Corporativa |
+    | `5`         | Banpais                              |
+    | `6`         | Banpais App                          |
+    | `7`         | BI SV                                |
+    | `8`         | BI SV App                            |
+    | `9`         | Bibank                               |
+    | `10`        | Bibank App                           |
+    | `11`        | Teclado Virtual                      |
+    | `12`        | Exeboard                             |
+    | `13`        | Exeboard App                         |
+
+=== "Session"
+
+    !!! info "Session"
+        Sesión generada por la banca
