@@ -6,7 +6,7 @@ El presente documento muestra los pasos necesarios para realizar la integración
     Los métodos descritos a continuación se implementan mediante el uso de una librería nativa generada para iOS con compatibilidad a partir de la versión iOS10+
 
 ## Instalación SDK
-Agregar referencia al repositorio de DevelSystems en la sección de Swift Package Manager del proyecto.
+Agregar `referencia` al `repositorio` de DevelSystems en la sección de `Swift Package Manager` del proyecto.
 
 === "SmartID"
     ``` js
@@ -41,7 +41,7 @@ SID.start(license: "licence", username: “username", isProduction: true)
     | `isProduction` | Boolean | `true` = Producción / `false` = Desarrollo/QA           |
 
 ## Enlazar dispositivo
-Sirve para iniciar el rastreo de un dispositivo en el servicio de SmartID, este método debe de ser ejecutado al momento de iniciar sesión de forma exitosa.
+Sirve para iniciar el rastreo de un dispositivo en el servicio de SmartID, este método debe de ser ejecutado al momento de `iniciar sesión` de forma exitosa.
 
 ### Integración
 Se debe llamar al método `Link` con los siguientes parámetros:
@@ -118,7 +118,7 @@ SID.shared.tracking(channel: channelProd, session: "", action: "PAGO_TERCEROS")
         Pantalla desde donde se genera el tracking. `Ejemplo: TRANFERENCIA_TERCEROS`
 
 ## Desenlazar Dispositivo
-Para finalizar el rastreo de un dispositivo en el servicio de SmartID. Este método debe ser ejecutado al momento de finalizar sesión.
+Para finalizar el rastreo de un dispositivo en el servicio de SmartID. Este método debe ser ejecutado al momento de `finalizar sesión`.
 
 ### Integración
 Se debe llamar al método UnLink con los siguientes parámetros:

@@ -7,7 +7,7 @@ El presente documento muestra los pasos necesarios para realizar la integración
 
 ## Instalación SDK
 
-1. Agregar referencia al repositorio de DevelSystems en el archivo.gradle del proyecto. { id="Agregar referencia al repo" }
+1. Agregar referencia al repositorio de DevelSystems en el archivo.gradle del proyecto.
 
 === "example.gradle"
     ``` gradle
@@ -25,7 +25,7 @@ El presente documento muestra los pasos necesarios para realizar la integración
     }
     ```
 
-2. Agregue las dependencias en su archivo build.gradle. { id="Agregar dependencias" }
+2. Agregue las dependencias en su archivo build.gradle.
 
 === "build.gradle"
     ``` gradle
@@ -34,7 +34,7 @@ El presente documento muestra los pasos necesarios para realizar la integración
     }
     ```
 
-3. Agregar los siguientes permisos en el archivo AndroidManifest.xml, para Android 6 y superiores se deben de solicitar en tiempo de ejecución. { id="Agregar permisos" }
+3. Agregar los siguientes permisos en el archivo AndroidManifest.xml, para Android 6 y superiores se deben de solicitar en tiempo de ejecución.
 
 === "AndroidManifest.xml"
     ``` xml
