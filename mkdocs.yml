@@ -117,7 +117,7 @@ nav:
     - Versiones                         : scripts/upgrades/versiones.md
     - ¿Cómo actualizar el script?       : scripts/upgrades/update-script.md
     
-  - Instalación: 
+  - SDK's: 
     - sdks/index.md
     - Android :   sdks/android.md
     - iOS     :   sdks/ios.md
