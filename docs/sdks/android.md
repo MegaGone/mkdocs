@@ -7,10 +7,10 @@ El presente documento muestra los pasos necesarios para realizar la integración
 
 ## Instalación SDK
 
-1. Agregar referencia al repositorio de DevelSystems en el archivo.gradle del proyecto.
+- Agregar referencia al repositorio de DevelSystems en el archivo.gradle del proyecto.
 
 === "example.gradle"
-    ``` gradle
+    ``` js
     allprojects {
         repositories {
             maven {
@@ -25,16 +25,16 @@ El presente documento muestra los pasos necesarios para realizar la integración
     }
     ```
 
-2. Agregue las dependencias en su archivo build.gradle.
+- Agregue las dependencias en su archivo build.gradle.
 
 === "build.gradle"
-    ``` gradle
+    ``` js
     dependencies {
         implementation 'com.develsystems.bi:smartid:1.1.3'
     }
     ```
 
-3. Agregar los siguientes permisos en el archivo AndroidManifest.xml, para Android 6 y superiores se deben de solicitar en tiempo de ejecución.
+- Agregar los siguientes permisos en el archivo AndroidManifest.xml, para Android 6 y superiores se deben de solicitar en tiempo de ejecución.
 
 === "AndroidManifest.xml"
     ``` xml
